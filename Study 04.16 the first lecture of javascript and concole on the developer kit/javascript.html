@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>javascript</title>
+  </head>
+  <body>
+    hello
+
+    <input type="text" id="inputNumber0" value="">
+    <input type="button" id="popup" value="팝업">
+    <br><br>
+    <input type="text" id="inputNumber1" value="">
+    <input type="text" id="inputNumber2" value="">
+    <input type="button" id="calculate" value="계산">
+
+
+  </body>
+
+  <script type="text/javascript">
+    console.log("hello javascript");
+
+    console.log(document); // html 태그 전체를 콘솔에 띄워준다.
+
+
+    // 다른 언어에서 쓰던 것처럼 이렇게 계산이 된다.
+    // var a = 10;
+    // console.log(a);
+    // a = 20;
+    // console.log(a);
+    // a = a * 10;
+    // console.log(a);
+    // console.log(a,a);
+    //
+    // var b = "30";
+    // console.log(a + b);
+    // console.log(a+ Number(b));
+
+    var button = document.getElementById("popup") // button이라는 변수를 정의. 거기에는 documnet에서 get(얻는다)Element(요소를)ById(Id로 된)을 담는다. 어떤 Id냐? (그 Id는 "calculate"다.)
+
+    // 함수의 이름 대신 함수 자체를 그냥 넣은 것. 이것은 아래와 같다.
+    // button.addEventListener('click',function() {
+    //
+    //   alert(document.getElementById("inputNumber0").value);
+    //
+    //   var number = document.getElementById("inputNumber0").value;
+    //   console.log(number);
+    //
+    //   // if(0) -> 0, 공백 = False, 그 외 True if(1) -> False
+    //   if(number >= 10) {
+    //     console.log("10 이상");
+    //   }
+    //   else {
+    //     console.log("10 미만");
+    //   }
+    // })
+
+    // 위에꺼랑 같은거다. 함수 부분과 addEventListener 부분을 분리한거다.
+    button.addEventListener('click',isitmoreten)  // 버튼아 'click' 이벤트가 들어오면 isitmoreten 함수를 실행해.
+
+    function isitmoreten () {
+      alert(document.getElementById("inputNumber0").value); // 알람을 띄워. 무엇을? (document에서 "inputNumber0"이란 요소의 Id의 값(value)만 뽑아내라.)
+
+      var number0 = document.getElementById("inputNumber0").value;
+      console.log(number0);
+
+      // if(0) -> 0, 공백 = False, 그 외 True if(1) -> False
+      if(number0 >= 10) {
+        console.log("10 이상");
+      }
+      else {
+        console.log("10 미만");
+      }
+    }
+
+    // 두 수를 입력 받아서 더하기.
+    var button = document.getElementById("calculate")
+    button.addEventListener('click',function(){
+
+      // 문자로 입력받는다. 숫자로 입력 받을 수는 없기 때문에 형변환을 해야한다. Number() 반드시 N은 대문자로!!
+      var number1 = document.getElementById("inputNumber1").value;
+      var number2 = document.getElementById("inputNumber2").value;
+
+      console.log(number1,"(와)과",number2,"의 합은");
+      var result = Number(number1) + Number(number2);
+      console.log(result,"입니다.");
+
+      // if(0) -> 0, 공백 = False, 그 외 True if(1) -> False
+      if(result >= 100) {
+        console.log("두 수를 합한 결과는 100 이상입니다.");
+      } else {
+        console.log("두 수를 합한 결과는 100 미만입니다.");
+      }
+
+      console.log(number1,"(와)과",number2,"의 곱은");
+      var result2 = Number(number1) * Number(number2);
+      console.log(result2,"입니다.");
+
+      // if(0) -> 0, 공백 = False, 그 외 True if(1) -> False
+      if(result2 >= 100) {
+        console.log("두 수를 곱한 결과는 100 이상입니다.");
+      } else {
+        console.log("두 수를 곱한 결과는 100 미만입니다.");
+      }
+
+      if(number1 == number2) {
+        console.log(number1,"과",number2,"는 같습니다.");
+      } else if (number1 > number2) {
+        console.log(number1,"이",number2,"보다 큽니다.");
+      } else {
+        console.log(number1,"이",number2,"보다 작습니다.");
+      }
+
+    }
+  )
+
+
+  </script>
+
+
+</html>

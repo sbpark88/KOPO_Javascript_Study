@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>html 연습2</title>
+    <!-- input 타입의 모든 것이 green으로 색이 바뀐다. -->
+    <style media="screen">
+      input {
+        color: green
+      }
+    </style>
+  </head>
+  <body>
+    <center><font size = "5" color="red"> 환영합니다.</font><br><font size = "10" color="green">회원가입</font></center>
+    <br><br><b>필수항목</b><br><br>
+
+    아이디(최대 10자) :
+    <input type="text" placeholder="ID를 입력하세요." maxlength="10"><br> <!-- 일반 텍스트 입력 -->
+    비밀번호 :
+    <input type="password" placeholder="비밀번호"><br><br> <!-- 비밀번호 입력(입력된 글씨가 ooo 로 표시) -->
+    이름 :
+    <input type="text" placeholder="이름을 입력하세요." maxlength="8"><br>
+    생년월일 :
+    연도
+    <input type="text" placeholder="연도" maxlength="4" size="10">
+    월
+    <select class="" name=""> <!-- 드롭박스 타입의 선택 상자 -->
+      <option value="">1월</option>
+      <option value="">2월</option>
+      <option value="">3월</option>
+      <option value="">4월</option>
+      <option value="">5월</option>
+      <option value="">6월</option>
+      <option value="">7월</option>
+      <option value="">8월</option>
+      <option value="">9월</option>
+      <option value="">10월</option>
+      <option value="">11월</option>
+      <option value="">12월</option>
+
+    </select>
+    일
+    <input type="text" placeholder="며칠" maxlength="2" size="4"><br>
+
+    성별 :
+    <input type="radio" name="sex"> 여
+    <input type="radio" name="sex"> 남
+    <input type="radio" name="sex"> 기타
+    <input type="radio" name="sex"> 동물
+    <br><br>
+
+    핸드폰번호
+    <input type="text" placeholder="010-0000-0000" maxlength="11"> <!-- 미리 띄워놓는 메시지(placeholder) -->
+    <input type="button" name="버튼 인풋" value="인증" id="인증버튼">
+
+      인증번호
+    <input type="text" placeholder="6자리 숫자를 입력해주세요." maxlength="6" size="20"> <!-- 입력할 수 있는 최대 길이(maxlength)와 입력하는 칸의 크기(size)를 조절 -->
+    <input type="button" name="버튼 인풋" value="확인" id="확인버튼"> <!-- 누르는 버튼 -->
+
+    <br><br>
+    가입하겠습니까?
+    <input type="button" name="버튼 인풋" value="가입" id="loginBtn"><br><br><br><br><br>
+
+    <i>선택사항</i><br><br>
+    결혼<br> <!-- 중복이 허용되지 않는 체크박스 -->
+    <input type="radio" name="age"> 미혼
+    <input type="radio" name="age"> 기혼
+    <input type="radio" name="age"> 돌싱
+    <input type="radio" name="age"> 비혼
+    <input type="radio" name="age"> ㅠㅠ
+    <p>
+
+    거주지<br> <!-- name이라는 속성명을 붙이면 같은 속성값끼리 하나의 그룹으로 묶임 -->
+    <input type="radio" name="region"> 서울시
+    <input type="radio" name="region"> 경기도
+    <input type="radio" name="region"> 인천시
+    <input type="radio" name="region"> 충청도
+    <input type="radio" name="region"> 강원도
+    <input type="radio" name="region"> 부산시
+    <br><br>
+
+    취미 (중복허용)<br> <!-- 중복이 허용되는 체크박스 -->
+    <input type="checkbox"> 음악
+    <input type="checkbox"> 독서
+    <input type="checkbox"> 게임
+    <input type="checkbox"> 등산
+    <input type="checkbox"> 영화
+    <input type="checkbox"> 잠
+    <br><br>
+    차량유무
+    <select class="" name=""> <!-- 드롭박스 타입의 선택 상자 -->
+      <option value="">없음</option>
+      <option value="">소형</option>
+      <option value="">중형</option>
+      <option value="">대형</option>
+    </select>
+    <br><br>
+    자기소개
+    <br>
+    <textarea name="name" rows="5" cols="60"></textarea> <!-- 입력 칸 생성 -->
+    <br><br>
+    과일
+    <ul> <!-- 순서가 없는 리스트 -->
+      <li>수박</li>
+      <li>메론</li>
+      <li>배</li>
+      <li>사과</li>
+      <li>바나나</li>
+    </ul>
+    고기
+    <ol> <!-- 순서가 있는 리스트 -->
+      <li>등심</li>
+      <li>안심</li>
+      <li>부채살</li>
+      <li>제비추리</li>
+      <li>살치</li>
+    </ol>
+
+
+
+  </body>
+
+  <script type="text/javascript">
+
+
+
+  </script>
+
+
+
+
+
+
+</html>
