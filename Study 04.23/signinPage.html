@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>signinPage</title>
+  </head>
+  <body>
+    로그인 페이지입니다!
+    <br><br><br>
+
+    ID : <input type="text" placeholder="ID를 입력하세요" id="userid"><br> // value=""로 넣으면 값이 직접 입력되는거다. 누르면 지워지는게 아님.
+    비밀번호 : <input type="password" placeholder="비밀번호" id="userpw">
+    <input type="button" value="로그인" id="signinButton">
+
+
+  </body>
+
+  <script type="text/javascript">
+    console.log("fighting!");
+    console.log(document); // html 태그 전체를 콘솔에 띄워주자.
+
+    var signinButton = document.getElementById("signinButton") // 버튼을 만들고.
+    signinButton.addEventListener('click', signinFunc) // 'click'이란 id의 버튼을 누르면 signinFunc 함수를 실행.
+
+    function signinFunc () {
+      var userid = document.getElementById("userid").value; // userid 의 값을 받아와 넣음.
+      var userpw = document.getElementById("userpw").value; // userpw 의 값을 받아와 넣음.
+
+      if(userid == "polytech" && userpw == "12345678") {
+        alert("로그인 성공");
+        console.log("로그인 성공했습니다.");
+      } else {
+        alert("로그인 실패");
+        console.log("로그인 실패했습니다.");
+      }
+
+    }
+
+
+  </script>
+
+</html>

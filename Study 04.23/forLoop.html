@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+  </body>
+
+  <script type="text/javascript">
+
+    // if (false) {
+    //   console.log("false is True!!");
+    // } else {
+    //   console.log("false is False!!");
+    // }
+    //
+    // if (true) {
+    //   console.log("true is True!!");
+    // } else {
+    //   console.log("true is False!!");
+    // }
+    //
+    //
+    // if (0) {
+    //   console.log("0 is True!!");
+    // } else {
+    //   console.log("0 is False!!");
+    // }
+    //
+    // if (1) {
+    //   console.log("1 is True!!");
+    // } else {
+    //   console.log("1 is False!!");
+    // }
+    //
+    // if (2) {
+    //   console.log("2 is True!!");
+    // } else {
+    //   console.log("2 is False!!");
+    // }
+    //
+    //
+    // if ("a") {
+    //   console.log("'a' is True!!");
+    // } else {
+    //   console.log("'a' is False!!");
+    // }
+    //
+    //
+    // if (console.log()) {
+    //   console.log("console.log() is True!!");
+    // } else {
+    //   console.log("console.log() is False!!");
+    // }
+
+
+    // for (console.log("a"); console.log("b"); console.log("d")) {
+    //   console.log("c");
+    // }
+
+    // for (console.log("a"); !console.log("b"); console.log("d")) {
+    //   console.log("c");
+    // }
+
+    // for (alert(1) ; alert(2) ; alert(4)) {
+    //   alert(3);
+    // } // 1, 2가 알림이 뜬 다음 종료됨.
+
+    // for (alert(1) ; !alert(2) ; alert(4)) {
+    //   alert(3);
+    // } // 1, 2, 3, 4, 2, 3, 4, 2, 3, 4, ... 무한 반복
+
+    // for (alert(1) ; !alert(2) ; ) {
+    //   alert(3);
+    // } // 1, 2, 3, 2, 3, 2, 3, ... 무한 반복
+    //
+    // for (alert(1) ; !alert(2) ; ) {
+    //   alert(3);
+    // }
+
+    console.log("*이 1, 3, 5, ... , 15개");
+    // a(0) = 1, a(1) = 3, a(2) = 5, ...
+    // a(n) = 2n + 1, 0 < n <= p
+    // 바깥 for문(행을 만드는 for문)은
+    // a(p) = 2p + 1 = 15 -> p = 7, 따라서 i는 0~7, 즉, 0 < i < 8
+    // 안쪽 for문(열을 만드는 for문)은 등차수열 공식을 그대로 넣으면 된다. j가 1부터 시작해 a(i)보다 작거나 같을때까지 1씩 증가하며 실행.
+    // 따라서, j = 1부터 시작해서 j <= 2i + 1까지 1씩 증가하거나
+    // j = 0 부터 시작해서 j < 2i + 1 까지 1씩 증가하면 된다.
+    for (var i = 0; i < 8; i++) {
+      var text = "";
+      for (var j = 1; j <= 2*i+1 ; j++) {
+        text += "*";
+      }
+      console.log(text);
+
+    }
+
+    console.log("\n*이 15, 13, 11, ... , 1개");
+    // a(0) = 15, a(1) = 13, a(2) = 11, ...
+    // a(n) = -2n + 15, 0 < n <= p
+    // 바깥 for문(행을 만드는 for문)은
+    // a(p) = -2p + 15 = 1 -> p = 7, 따라서 i는 0~7, 즉, 0 < i < 8
+    // 안쪽 for문(열을 만드는 for문)은 등차수열 공식을 그대로 넣으면 된다. j가 1부터 시작해 a(i)보다 작거나 같을때까지 1씩 증가하며 실행.
+    // 따라서, j = 1부터 시작해서 j <= -2i + 15까지 1씩 증가하거나
+    // j = 0부터 시작해서 j > -2i + 15까지 1씩 증가하면 된다.
+    for (var i = 0; i < 8; i++) {
+      var text = "";
+      for (var j = 1; j <= -2*i+15 ; j++) {
+        text += "*";
+      }
+      console.log(text);
+
+    }
+
+    console.log("\n*이 1, 2, 4, 8, 16, 32, 64");
+    // a(0) = 1, a(1) = 2, a(2) = 4, a(3) = 8, ...
+    // a(n) = 2^n, 0 < n <= p
+    // 바깥 for문(행을 만드는 for문)은
+    // a(p) = 2^p = 64 -> p = log(2)64 -> p = 6, 따라서 i는 0~6, 즉, 0 < i < 7
+    // 안쪽 for문(열을 만드는 for문)은 등비수열 공식을 그대로 넣으면 된다. j가 1부터 시작해 a(i)보다 작거나 같을때까지 1씩 증가하며 실행.
+    // 따라서, j = 1부터 시작해서 j <= 2^i까지 1씩 증가하거나
+    // j = 0부터 시작해서 j < 2^i까지 1씩 증가하면 된다.
+    for (var i = 0; i < 7; i++) {
+      var text = "";
+      for (var j = 1; j <= Math.pow(2,i) ; j++) {
+        text += "*";
+      }
+      console.log(text);
+
+    }
+
+  </script>
+
+
+</html>
