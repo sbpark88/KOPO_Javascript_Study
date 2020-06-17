@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    1번 &nbsp&nbsp&nbsp 0 <input type="radio" name="s1">
+        &nbsp&nbsp&nbsp 1 <input type="radio" name="s1">
+        &nbsp&nbsp&nbsp 2 <input type="radio" name="s1">
+        &nbsp&nbsp&nbsp 3 <input type="radio" name="s1">
+        &nbsp&nbsp&nbsp 가중치 <input type="text" id="s1Rev"><br>
+
+    2번 &nbsp&nbsp&nbsp 0 <input type="radio" name="s2">
+        &nbsp&nbsp&nbsp 1 <input type="radio" name="s2">
+        &nbsp&nbsp&nbsp 2 <input type="radio" name="s2">
+        &nbsp&nbsp&nbsp 3 <input type="radio" name="s2">
+        &nbsp&nbsp&nbsp 가중치 <input type="text" id="s2Rev"><br>
+
+    3번 &nbsp&nbsp&nbsp 0 <input type="radio" name="s3">
+        &nbsp&nbsp&nbsp 1 <input type="radio" name="s3">
+        &nbsp&nbsp&nbsp 2 <input type="radio" name="s3">
+        &nbsp&nbsp&nbsp 3 <input type="radio" name="s3">
+        &nbsp&nbsp&nbsp 가중치 <input type="text" id="s3Rev"><br><br>
+
+    <span id="result"></span><br><br>
+
+    <input type="button" value="계산" id="calcBtn">
+
+  </body>
+  <script>
+  $("#calcBtn").click(function() {
+    var s1, s2, s3, s1r, s2r, s3r;
+    for(var i = 0; i < $("[name=s1]").length; i++) {
+      if($("[name=s1]")[i].checked) {
+        s1 = i;
+        s1r = $("#s1Rev").val();
+      }
+
+      if($("[name=s2]")[i].checked) {
+        s2 = i;
+        s2r = $("#s2Rev").val();
+      }
+
+      if($("[name=s3]")[i].checked) {
+        s3 = i;
+        s3r = $("#s3Rev").val();
+      }
+  };
+
+
+
+    $("#result").html( `${s1}x${s1r}
+                      + ${s2}x${s2r}
+                      + ${s3}x${s3r}
+                      = ${s1*s1r+s2*s2r+s3*s3r}<br>`);
+
+  });
+
+  </script>
+</html>

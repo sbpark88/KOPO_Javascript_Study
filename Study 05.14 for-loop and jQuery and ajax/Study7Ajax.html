@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <input type="button" value="호출" id="ajaxBnt">
+    <br><br>
+    <span id="result"></span>
+  </body>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+    $("#ajaxBnt").click(function() {
+
+      $.ajax({  // 호출한다. req 보낸다.
+        // // 방법 1.
+        // url : 'http://localhost/sumForm?num1=10&num2=20'
+        // data : {}
+
+        // 방법 2.
+        url : 'http://localhost:80/Study6query',
+        data : {
+          num1 : 10,
+          num2 : 20
+
+      },
+      success:function(response){
+        console.log(response);
+        $("#result").html(response);
+        $("#result").html(`${response}`);
+      }
+    });
+
+  });
+
+  </script>
+
+
+</html>

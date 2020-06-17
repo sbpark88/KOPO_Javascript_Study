@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <!-- id : <input type="text" id="loginID"><br>
+    pass : <input type="password" id="loginPass"><br>
+    <input type="button" value="login" id="loginBtn"> -->
+
+    1번 &nbsp&nbsp&nbsp 0 <input type="radio" name="radioGroup1">
+        &nbsp&nbsp&nbsp 1 <input type="radio" name="radioGroup1">
+        &nbsp&nbsp&nbsp 2 <input type="radio" name="radioGroup1">
+        &nbsp&nbsp&nbsp 3 <input type="radio" name="radioGroup1">
+        &nbsp&nbsp&nbsp 가중치 <input type="text" id="ratio1"><br>
+
+    2번 &nbsp&nbsp&nbsp 0 <input type="radio" name="radioGroup2">
+        &nbsp&nbsp&nbsp 1 <input type="radio" name="radioGroup2">
+        &nbsp&nbsp&nbsp 2 <input type="radio" name="radioGroup2">
+        &nbsp&nbsp&nbsp 3 <input type="radio" name="radioGroup2">
+        &nbsp&nbsp&nbsp 가중치 <input type="text" id="ratio2"><br>
+
+    3번 &nbsp&nbsp&nbsp 0 <input type="radio" name="radioGroup3">
+        &nbsp&nbsp&nbsp 1 <input type="radio" name="radioGroup3">
+        &nbsp&nbsp&nbsp 2 <input type="radio" name="radioGroup3">
+        &nbsp&nbsp&nbsp 3 <input type="radio" name="radioGroup3">
+        &nbsp&nbsp&nbsp 가중치 <input type="text" id="ratio3"><br><br>
+
+    <span id="result"></span><br><br>
+
+    <input type="button" value="계산" id="calcBtn">
+
+  </body>
+
+  <script>
+
+    document.getElementById("calcBtn").addEventListener('click', calcFunc)
+
+
+    function calcFunc() {
+      var result = 0;
+      var boxTmp = 0;
+      var ratioTmp = 0;
+      var textTmp = "";
+
+      // document.getElementsByName("radioGroup" + (i+1)).length
+      for (var i=0; i<document.getElementsByName("radioGroup" + (i+1)).length; i++) {
+        ratioTmp = document.getElementById("ratio" + (i+1)).value;
+        // ratioArray[i] = document.getElementById("ratio" + (i+1)).value;
+        // (document.getElementsByName("radioGroup" + (i+1)).length + 1)
+        for(var j=0; j<4; j++) {
+          if (document.getElementsByName("radioGroup" + (i+1))[j].checked == true) {
+            boxTmp = j;
+            // boxArray[i] = j;
+            result = result + ratioTmp * boxTmp;
+            if (i != 2) {
+              textTmp = textTmp + ratioTmp + " x " + boxTmp + " + ";
+            } else {
+              textTmp = textTmp + ratioTmp + " x " + boxTmp + " ";
+            }
+
+          }
+          console.log(boxTmp);
+          console.log(ratioTmp);
+        }
+      }
+      document.getElementById("result").innerHTML = textTmp + "= " + result;
+    }
+
+    // function calcFunc() {
+    //   // getElementsById('id')    Elements 여러개다. 배열로 가져온다.
+    //   var number1 = document.getElementsById('radiogGroup1').value;
+    //   var ratio1 = document.getElementById('ragio1').value;
+    //   var number2 = document.getElementsById('radiogGroup2').value;
+    //   var ratio2 = document.getElementById('ragio2').value;
+    //   var number3 = document.getElementsById('radiogGroup3').value;
+    //   var ratio3 = document.getElementById('ragio3').value;
+    //
+    //   var result = number1 * ratio1 + number2 * ratio2 + number3 * raitio3;
+    //
+    // };
+
+
+  </script>
+
+
+
+</html>

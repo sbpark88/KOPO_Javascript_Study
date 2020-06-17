@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<!-- jquery 최신 사용하려고 복붙한거 -->
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    Hello jquery
+
+    <meta charset="utf-8">
+    <title></title>
+    <input type="text" id="inputText">
+    <input type="button" value="testBtn" id="testBtn">
+
+    <span id="outputArea"></span>
+
+  </body>
+  <script type="text/javascript">
+    // document.getElementById("testBtn").addEventListener('click',function(){
+      // console.log(document.getElementById("inputText").value);
+      // document.getElementById("inputText").value;
+      // document.getElementById("inputText").innerHTML = document.getElementById
+    // });
+
+    $('#testBtn').click(function(){
+      $("#outputArea").html( $("#outputArea").html() + $("#inputText").val() );
+      // $("#outputArea").append($("#inputText").val());
+      // $("#outputArea").prepend($("#inputText").val());
+
+
+    });
+
+
+
+  </script>
+</html>

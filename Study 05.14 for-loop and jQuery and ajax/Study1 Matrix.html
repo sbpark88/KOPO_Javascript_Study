@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>for for for</title>
+  </head>
+  <body>
+
+  </body>
+
+  <script>
+
+  var array1 = [];   // 1. 배열을 하나 생성해준다.
+
+  for(var i=0;i<5;i++) {
+    array1[i]= [];   // 2. 안쪽 배열을 생성해준다. (자바스크립트에는 자료형을 지정하는게 없기 때문에 이렇게 배열이라고 인식을 시켜줘야 한다.)
+    for(var j=0;j<5;j++) {
+      array1[i][j] = i * 15 + j * 3 + 1;
+    }
+  }
+  console.log(array1);
+
+  var array2 = [];
+  for(var i=0;i<5;i++) {
+    array2[i]= [];   // 2. 안쪽 배열을 생성해준다. (자바스크립트에는 자료형을 지정하는게 없기 때문에 이렇게 배열이라고 인식을 시켜줘야 한다.)
+    for(var j=0;j<5;j++) {
+      array2[i][j] = i*j;
+    }
+  }
+  console.log(array2);
+
+  var array3 = [];
+  for(var i=0;i<5;i++) {
+    array3[i]= [];   // 2. 안쪽 배열을 생성해준다. (자바스크립트에는 자료형을 지정하는게 없기 때문에 이렇게 배열이라고 인식을 시켜줘야 한다.)
+    for(var j=0;j<5;j++) {
+      array3[i][j] = String(i * 10 + j);
+    }
+  }
+  console.log(array3);
+
+  var array4 = [];
+  for(var i=0;i<5;i++) {
+    array4[i]= [];   // 2. 안쪽 배열을 생성해준다. (자바스크립트에는 자료형을 지정하는게 없기 때문에 이렇게 배열이라고 인식을 시켜줘야 한다.)
+    for(var j=0;j<5;j++) {
+      array4[i][j] = String(i) + String(j);
+      // array4[i][j] = `${i}${j}`
+    }
+  }
+  console.log(array4);
+
+
+  </script>
+
+</html>
