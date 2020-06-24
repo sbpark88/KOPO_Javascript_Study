@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <select id="manufacturer" value="manufacturer"> <!-- 드롭박스 타입의 선택 상자 -->
+      <option value="0">제조사</option>
+      <option value="2100">현대</option>
+      <option value="1300">기아</option>
+      <option value="1500">쌍용</option>
+      <option value="3500">벤츠</option>
+      <option value="3200">BMW</option>
+    </select>
+
+    <select id="color" value="color"> <!-- 드롭박스 타입의 선택 상자 -->
+      <option value="0">색상</option>
+      <option value="100">빨강</option>
+      <option value="120">파랑</option>
+      <option value="200">초록</option>
+      <option value="130">노랑</option>
+      <option value="80">검정</option>
+    </select>
+    <input type="button" value="가격 확인하기" id="checkPrice">
+    <br>
+    <span id="result"></span>
+
+  </body>
+
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+    $("#checkPrice").click(function(){
+      $.ajax({
+        url : 'http://localhost:80/calcCarPrice',
+        data : {
+          // 방법 1.
+          // manufac : $("#manufacturer option:selected").val(),
+          // color : $("#color option:selected").val()
+
+          // 방법 2.
+          manufac : $("#manufacturer option:selected").text(),
+          color : $("#color option:selected").text()
+
+        },
+        success : function(response) {
+          // $('#result').append("<br>" + response);
+          // $("#result").html(response);
+          $("#result").html(`${response}`);
+        }
+      });
+    });
+  </script>
+
+</html>

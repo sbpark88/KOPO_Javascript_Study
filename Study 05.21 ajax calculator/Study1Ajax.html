@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <input type="text" placeholder="지갑에 얼마 있어요?" id="money">
+    <input type="button" value="아이템" id="storeBnt">
+    <br><br>
+    <span id="result"></span>
+
+  </body>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+  // text 박스로 이동
+  $("#money").focus();
+  // 입력 상태로 만든다
+  // $("#storeBtn").click(function(){
+  //   getItemFormServer();
+  // })
+  // 13(엔터)키를 누른다
+  // $("#money").keydown(function(key){
+  //   if(key.keyCode == 13) {
+  //     $("#getItemBtn").click();
+  //   }
+  // });
+
+
+  $('#storeBnt').click(function() {
+    $.ajax({
+      url : 'http://localhost:80/QueryStore',
+      data : {
+        money : $('#money').val()
+      },
+      success : function(response) {
+        $('#result').append("<br>" + response);
+        // text 박스로 이동 -> 문자열 지우기
+        $('#money').focus();
+        $('#money').val("");
+      }
+    });
+  });
+
+  </script>
+</html>

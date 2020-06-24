@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <input type="text" placeholder="num1을 입력" id="num1">
+    <input type="text" placeholder="num2를 입력" id="num2">
+    <br><br>
+    <input type="button" value="덧셈" id="sumBnt"></button>
+    <input type="button" value="뺄셈" id="subtractionBnt"></button>
+    <input type="button" value="곱셈" id="multiplyBnt"></button>
+    <input type="button" value="나눗셈" id="divisionBnt"></button>
+    <input type="button" value="몫" id="quotientBnt"></button>
+    <input type="button" value="나머지" id="remainderBnt"></button>
+    <input type="button" value="제곱" id="squareBnt"></button>
+
+    <span id="result"></span>
+
+  </body>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+    $('#sumBnt').click(function() {
+      $.ajax({
+        url : 'http://localhost:80/QuerySum',
+        data : {
+          num1 : $('#num1').val(),
+          num2 : $('#num2').val()
+        },
+        success : function(response) {
+          $('#result').append("<br>" + response);
+        }
+      });
+    });
+    $('#subtractionBnt').click(function() {
+      $.ajax({
+        url : 'http://localhost:80/QuerySubtraction',
+        data : {
+          num1 : $('#num1').val(),
+          num2 : $('#num2').val()
+        },
+        success : function(response) {
+          $('#result').append("<br>" + response);
+        }
+      });
+    });
+    $('#multiplyBnt').click(function() {
+      $.ajax({
+        url : 'http://localhost:80/QueryMultiply',
+        data : {
+          num1 : $('#num1').val(),
+          num2 : $('#num2').val()
+        },
+        success : function(response) {
+          $('#result').append("<br>" + response);
+        }
+      });
+    });
+    $('#divisionBnt').click(function() {
+      $.ajax({
+        url : 'http://localhost:80/QueryDivision',
+        data : {
+          num1 : $('#num1').val(),
+          num2 : $('#num2').val()
+        },
+        success : function(response) {
+          $('#result').append("<br>" + response);
+        }
+      });
+    });
+    $('#quotientBnt').click(function() {
+      $.ajax({
+        url : 'http://localhost:80/QueryQuotient',
+        data : {
+          num1 : $('#num1').val(),
+          num2 : $('#num2').val()
+        },
+        success : function(response) {
+          $('#result').append("<br>" + response);
+        }
+      });
+    });
+    $('#remainderBnt').click(function() {
+      $.ajax({
+        url : 'http://localhost:80/QueryRemainder',
+        data : {
+          num1 : $('#num1').val(),
+          num2 : $('#num2').val()
+        },
+        success : function(response) {
+          $('#result').append("<br>" + response);
+        }
+      });
+    });
+    $('#squareBnt').click(function() {
+      $.ajax({
+        url : 'http://localhost:80/QuerySquare',
+        data : {
+          num1 : $('#num1').val(),
+          num2 : $('#num2').val()
+        },
+        success : function(response) {
+          $('#result').append("<br>" + response);
+        }
+      });
+    });
+  </script>
+
+
+</html>
