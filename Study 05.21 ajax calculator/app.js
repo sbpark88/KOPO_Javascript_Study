@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var http = require('http');
-var server = http.createServer(app).listen(80);
+var server = http.createServer(app).listen(81);
 
 // 1. AJAX calcForm 연습하기
 app.get('/Review1Ajax', function (req, res) {
