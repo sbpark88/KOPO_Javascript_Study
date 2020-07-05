@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <!-- 배수증가 버튼 : 클릭 3초 후 아래로 입력한 숫자의 배수씩 증가하며 출력
+         타이머 버튼 : 클릭 3초 후 버튼 옆에 1초씩 1씩 증가하는 숫자 출력
+         타이머 종료 : 클릭 3초 후 타이머 종료 -->
+
+    <input type="text" id="inputNumber">
+    <input type="button" value="배수증가" id="tMultiple">
+    <input type="button" value="타이머 시작" id="tStart">
+    <input type="button" value="타이머 종료" id="tStop">
+    타이머 : <span id="timer"></span>
+    <br>
+    출력 : <span id="result"></span>
+
+  </body>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+  console.log("start");
+  
+  $("#tMultiple").click(function() {
+    setTimeout(function () {
+      var count = 1;
+      var multiplier = $("#inputNumber").val();
+      setInterval(function () {
+        $("#result").append("<br>" + count * multiplier);
+        count += 1;
+      }, 1000);
+    }, 3000);
+  });
+
+  var myTimer;
+  $("#tStart").click(function() {
+    setTimeout(function () {
+      var count = 0;
+      myTimer = setInterval(function () {
+        $("#timer").html(count);
+        count += 1;
+      }, 1000);
+    }, 3000);
+  });
+
+  $("#tStop").click(function() {
+    setTimeout(function () {
+      clearInterval(myTimer);
+    }, 3000);
+  });
+
+
+
+
+
+  </script>
+</html>

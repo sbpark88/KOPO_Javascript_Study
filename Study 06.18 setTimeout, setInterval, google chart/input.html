@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <input type="text" placeholder="서버에 입력하고 싶은것은?" id="value" style="width:200px"><br><br>
+    <input type="button" value="입력!!" id="putBnt"></button>
+    <input type="button" value="홈으로" onclick="goToHome()"></button>
+    <br /><br />
+    <span id="result"></span>
+  </body>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+
+  $('#putBnt').click(function() {
+    var myVal = $('#value').val();
+    $.ajax({
+      url : 'http://localhost/input',
+      type : 'POST',
+      data : {
+        myVal : myVal
+      },
+      success:function(res) {
+        alert("Success!");
+      }
+    });
+  });
+
+  function goToHome() {
+    location.href = "/";
+  }
+
+  </script>
+</html>

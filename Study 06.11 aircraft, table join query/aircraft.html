@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>항공정보</title>
+  <!-- <link rel="stylesheet" href="air.css" /> -->
+</head>
+<style>
+  #aircraftInfo {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin-right: -4px;
+  }
+
+  #airroadInfo {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin-right: -4px;
+  }
+
+  #btn_group input {
+    border: 1px solid skyblue;
+    background-color: rgba(0, 0, 0, 0);
+    color: skyblue;
+    padding: 5px;
+  }
+
+  #btn_group input:hover {
+    color: white;
+    background-color: skyblue;
+  }
+</style>
+
+<body>
+  <h3> 항공기정보 입니다. </h3>
+  <div id="airArea"></div>
+  <br>
+  <div id="btn_group">
+    <input type="button" value="항공기정보입력하러가기" id="aircraftInfo" onclick="postAircraft()"></button>
+    <input type="button" value="운항정보입력하러가기" id="airroadInfo" onclick="postflight()"></button>
+  </div>
+
+
+  <span id="airArea"></span>
+</body>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<script>
+  $.ajax({
+    url: `http://localhost/aircraft`,
+    data: {},
+    success: function(response) {
+      console.log(response);
+      for (var i = 0; i < response.length; i++) {
+        var aircraft = response[i]
+        $("#airArea").append(`
+          편명 :
+          항공기명 : ${aircraft.aircraftName}
+          좌석수 : ${aircraft.seats}
+          출발지 :
+          목적지 :
+          출발시각 :
+          도착시각 :
+          <br/>`);
+      }
+    }
+  });
+
+  function postAircraft() {
+    location.href = "/aircraftPostPage"
+  }
+  function postflight() {
+    location.href = "/flightPostPage"
+  }
+</script>
+
+</html>

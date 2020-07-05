@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <input type="text" placeholder="title" id="title" style="width:500px"><br><br>
+    <input type="text" placeholder="content" id="content" style="width:500px; height:300px">
+    <br><br>
+    <input type="button" value="수정하기" id="putBnt"></button>
+    <input type="button" value="홈으로" onclick="redirectToMainPage()"></button>
+    <br><br>
+    <span id="result"></span>
+  </body>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+    //-javascript-
+      //location.href -> http://localhost:8088/login/login.do?key=value
+
+      //location.protocol -> http:
+      //location.host -> localhost:8088
+      //location.pathname -> /login/login.do
+      //location.search -> ?key=value
+
+    // URL에서 쿼리만 분해해서 쿼리의 키값을 뽑아낸다.
+    var q_no = location.search;
+    q_no = q_no.split("=")[1];
+
+    // 해당 글만 불러온다.
+    $.ajax({
+      url:'http://localhost:81/selectNewsFromServer',
+      data: {
+        q_no : q_no
+      },
+      success:function(response){   // 받아온 response는 [{Key:Value},{Key:Value},{Key:Value}]로 리스트 안에 딕셔너리 형태로 받아온다.
+        console.log(response);
+        // for(var i=0;i<response.length;i++) {
+        //   var news = response[i];   // response로 받아온 리스트의 i 번째 딕셔너리를 변수에 담는다.
+        //   $("#title").val(news.title)
+        //   $("#content").val(news.content)
+        // }
+        // 쿼리로 분리한 번호를 DB에 쿼리를 보내 받아온 글 1개를 input type="text" 안에 넣는다.
+        var news = response[0];
+        $("#title").val(news.title)
+        $("#content").val(news.content)
+      }
+    });
+    // 수정하기 버튼 실행
+    $('#putBnt').click(function() {
+      $.ajax({
+        url : 'http://localhost:81/putNewsFromServer',
+        type : 'PUT',
+        data : {
+          q_no : q_no,
+          q_title : $('#title').val(),
+          q_content : $('#content').val()
+        },
+        success:function(response) {
+          alert('포스팅을 수정했습니다.\n메인 페이지로 이동합니다.');
+          location.href = '/newsList';
+        }
+      });
+    });
+
+    // 홈으로 돌아가는 버튼 실행
+    function redirectToMainPage() {
+      location.href = "/newsList";
+    }
+
+  </script>
+</html>

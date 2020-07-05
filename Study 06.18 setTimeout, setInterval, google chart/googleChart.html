@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <div id="chart_div"></div>
+
+  </body>
+  <script>
+  var graphValue;
+
+  function randomData() {
+    graphValue = [];
+    for (var i=1; i <= 100; i++) {
+      var ranDogsInt = parseInt(1 + Math.random() * 10);
+      var ranCatsInt = parseInt(1 + Math.random() * 10);
+      var ranCowsInt = parseInt(1 + Math.random() * 10);
+      graphValue.push([i, ranDogsInt, ranCatsInt, ranCowsInt]);
+    }
+    return graphValue;
+  }
+
+  // var firstChartValue = [ [1, randomInt, randomInt], [2, randomInt, randomInt], [3, randomInt, randomInt], [4, randomInt, randomInt], [5, randomInt, randomInt],
+  //                         [6, randomInt, randomInt], [7, randomInt, randomInt], [8, randomInt, randomInt], [9, randomInt, randomInt], [10, randomInt, randomInt] ];
+  // var secondChartValue = [ [1, randomInt, randomInt], [2, randomInt, randomInt], [3, randomInt, randomInt], [4, randomInt, randomInt], [5, randomInt, randomInt],
+  //                         [6, randomInt, randomInt], [7, randomInt, randomInt], [8, randomInt, randomInt], [9, randomInt, randomInt], [10, randomInt, randomInt] ];
+  // var thirdChartValue = [ [1, randomInt, randomInt], [2, randomInt, randomInt], [3, randomInt, randomInt], [4, randomInt, randomInt], [5, randomInt, randomInt],
+  //                         [6, randomInt, randomInt], [7, randomInt, randomInt], [8, randomInt, randomInt], [9, randomInt, randomInt], [10, randomInt, randomInt] ];
+  //
+  // var graphValue = [firstChartValue, secondChartValue, thirdChartValue];
+
+  google.charts.load('current', {packages: ['corechart', 'line']});
+  google.charts.setOnLoadCallback(drawCurveTypes);
+
+  function drawCurveTypes() {
+    // var graphValue = [];
+    // for (var i=1; i <= 100; i++) {
+    //   var ranDogsInt = parseInt(1 + Math.random() * 10);
+    //   var ranCatsInt = parseInt(1 + Math.random() * 10);
+    //   var ranCowsInt = parseInt(1 + Math.random() * 10);
+    //   graphValue.push([i, ranDogsInt, ranCatsInt, ranCowsInt]);
+    // }
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'X');
+      data.addColumn('number', 'Dogs');
+      data.addColumn('number', 'Cats');
+      data.addColumn('number', 'Cows');
+
+      data.addRows(graphValue);
+
+      var options = {
+        hAxis: {
+          title: 'Time'
+        },
+        vAxis: {
+          title: 'Popularity'
+        },
+        series: {
+          // 1: {curveType: 'function'}
+          1: {curveType: 'none'}
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+  }
+
+  setInterval(function () {
+    graphValue = randomData();
+    drawCurveTypes();
+  }, 1000);
+
+
+
+
+  </script>
+</html>

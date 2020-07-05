@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <span id="result"></span>
+    <br><br>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <div id="chart_div"></div>
+  </body>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+    var time=0;
+    var graphValue = [];
+    var stockPrice;
+
+    setInterval(function () {
+        $.ajax({
+          url : '/getNaver',
+          type : 'GET',
+          data : {
+
+          },
+          success : function(res) {
+            stockPrice = res; // 크롬에서 콘솔에서 stockPrice를 찍어보면 보기 좋게 나온다.
+            // console.log(res);
+            graphValue.push([time,Number(stockPrice)])
+            time++;
+            drawCurveTypes(graphValue);   // 구글 차트를 그려주는 함수를 호출한다.
+          }
+        });
+    },1000);
+
+
+    google.charts.load('current', {packages: ['corechart', 'line']});
+    google.charts.setOnLoadCallback(drawCurveTypes);
+
+    function drawCurveTypes() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', '시간(초)');
+      data.addColumn('number', '카카오');
+
+      data.addRows(graphValue);
+
+      var options = {
+        hAxis: {
+          title: '시간(초)'
+        },
+        vAxis: {
+          title: '가격(원)'
+        },
+        series: {
+          1: {curveType: 'function'}
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+
+  </script>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>실시간 주식 정보</title>
+  </head>
+  <body>
+    <h>실시간 주식 정보 페이지입니다</h>
+    <input type="button" value="주식 리스트 보러 가기" id="mainBtn" onclick = "goToStockList()">
+    <br>
+    <select name="company" id="company">
+      <option value="hynix">하이닉스</option>
+      <option value="coway">코웨이</option>
+      <option value="lgelectronics">LG전자</option>
+      <option value="cj">CJ</option>
+      <option value="chongkundang">종근당</option>
+    </select>
+    <input type="button" value="가격보기" onclick="sendRequest()">
+    <br><br>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <div id="chart_div"></div>
+  </body>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+  function goToStockList() {
+    location.href = "/"
+  }
+
+  var time;
+  var stockPrice;
+  var graphValue = [];
+  var myGraph;
+  // var graphValue = new Array(30);
+
+  function sendRequest() {
+    // 버튼 누를 때 초기화
+    time = 0;
+    graphValue = [];
+    clearInterval(myGraph);
+    var company = $("#company option:selected").val();
+    var stockUrl;
+    $.ajax({
+      url : 'getStockInfo',
+      data : {
+      },
+      success : function(res){
+        for (var i=0; i<res.length; i++) {
+          if (company == res[i].stockName) {
+            stockUrl = res[i].stockUrl;
+            return;
+          }
+        }
+      }
+    });
+
+    // 버튼 누른 후 반복되는 부분
+    myGraph = setInterval(function () {
+         $.ajax({
+           url : '/getStockPrice',
+           type : 'GET',
+           data : {
+             stockUrl : `${stockUrl}`
+           },
+           success : function(res) {
+             stockPrice = res;
+             // console.log(res);
+             graphValue.push([time,Number(stockPrice)])
+             if (graphValue.length > 30) {
+               graphValue.shift();
+             }
+             time++;
+             drawCurveTypes(graphValue);   // 구글 차트를 그려주는 함수를 호출한다.
+           }
+         });
+     },1000);
+  };
+
+  google.charts.load('current', {packages: ['corechart', 'line']});
+  google.charts.setOnLoadCallback(drawCurveTypes);
+
+  function drawCurveTypes() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('number', '시간(초)');
+    data.addColumn('number', '가격');
+    // data.addColumn('number', `${company}`);
+
+    data.addRows(graphValue);
+
+    var options = {
+      hAxis: {
+        title: '시간(초)'
+      },
+      vAxis: {
+        title: '가격(원)'
+      },
+      series: {
+        1: {curveType: 'function'}
+      }
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+  }
+
+  </script>
+</html>

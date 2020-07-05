@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <input type="button" value="입력 페이지로" onclick="goToInput()"></button>
+    <br><br>
+    값 : <span id="result"></span>
+  </body>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+  var time = 1;  // second로 입력
+
+  setInterval(function () {
+    $.ajax({
+      url : 'http://localhost/view',
+      type : 'GET',
+      data : {
+      },
+      success:function(res){   // 받아온 response는 [{Key:Value},{Key:Value},{Key:Value}]로 리스트 안에 딕셔너리 형태로 받아온다.
+        // var table = res[res.length-1];
+        var table = res[0];
+        $('#result').html(`${table.myvalue} <br>`)
+      }
+    });
+  }, time * 1000);
+
+  function goToInput() {
+    location.href = "/inputValue";
+  }
+
+  </script>
+</html>

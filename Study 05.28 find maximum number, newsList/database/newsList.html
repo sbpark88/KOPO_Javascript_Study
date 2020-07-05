@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <input type="text" placeholder="no" id="no">
+    <input type="text" placeholder="title" id="title">
+    <input type="text" placeholder="content" id="content">
+    <br><br>
+    <input type="button" value="C(insert)" id="insertBnt"></button>
+    <input type="button" value="R(select)" id="selectBnt"></button>
+    <input type="button" value="U(update)" id="updateBnt"></button>
+    <input type="button" value="D(delete)" id="deleteBnt"></button>
+    <input type="button" value="화면지우개" id="clearBnt"></button>
+    <br><br>
+    <span id="result"></span>
+  </body>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+    $('#insertBnt').click(function() {
+      $.ajax({
+        url : 'http://localhost:81/insertNewsFromServer',
+        data : {
+          q_no : $('#no').val(),
+          q_title : $('#title').val(),
+          q_content : $('#content').val()
+        },
+        success : function(response) {
+          console.log(response);
+          $('#result').html(" ");
+          for (var i = 0; i < response.length; i++) {
+            $('#result').append("번호 : " + response[i].no + "<br>");
+            $('#result').append("제목 : " + response[i].title + "<br>");
+            $('#result').append("내용 : " + response[i].content + "<br><br>");
+          };
+        }
+      });
+    });
+    $('#selectBnt').click(function() {
+      $.ajax({
+        url : 'http://localhost:81/selectNewsFromServer',
+        data : {
+          q_no : $('#no').val(),
+          q_title : $('#title').val(),
+          q_content : $('#content').val()
+        },
+        success : function(response) {
+          console.log(response);
+          $('#result').html(" ");
+          for (var i = 0; i < response.length; i++) {
+            $('#result').append("번호 : " + response[i].no + "<br>");
+            $('#result').append("제목 : " + response[i].title + "<br>");
+            $('#result').append("내용 : " + response[i].content + "<br><br>");
+          };
+        }
+      });
+    });
+    $('#updateBnt').click(function() {
+      $.ajax({
+        url : 'http://localhost:81/updateNewsFromServer',
+        data : {
+          q_no : $('#no').val(),
+          q_title : $('#title').val(),
+          q_content : $('#content').val()
+        },
+        success : function(response) {
+          console.log(response);
+          $('#result').html(" ");
+          for (var i = 0; i < response.length; i++) {
+            $('#result').append("번호 : " + response[i].no + "<br>");
+            $('#result').append("제목 : " + response[i].title + "<br>");
+            $('#result').append("내용 : " + response[i].content + "<br><br>");
+          };
+        }
+      });
+    });
+    $('#deleteBnt').click(function() {
+      $.ajax({
+        url : 'http://localhost:81/deleteNewsFromServer',
+        data : {
+          q_no : $('#no').val(),
+          q_title : $('#title').val(),
+          q_content : $('#content').val()
+        },
+        success : function(response) {
+          console.log(response);
+          $('#result').html(" ");
+          for (var i = 0; i < response.length; i++) {
+            $('#result').append("번호 : " + response[i].no + "<br>");
+            $('#result').append("제목 : " + response[i].title + "<br>");
+            $('#result').append("내용 : " + response[i].content + "<br><br>");
+          };
+        }
+      });
+    });
+    $('#clearBnt').click(function() {
+      $('#result').html(" ");
+    });
+  </script>
+</html>

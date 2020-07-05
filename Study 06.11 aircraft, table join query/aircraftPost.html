@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <title></title>
+</head>
+
+<body>
+<h3> 항공기정보 입력을 해주세요 </h3>
+  항공코드<input type="text" id="aircraftCode">
+  <br>
+  항공기명<input type="text" id="aircraftName">
+  <br>
+  좌석수<input type="text" id="seats">
+  <br><br>
+  <input type="button" value="항공기 정보 입력" id="postBtn">
+  <input type="button" value="메인으로" id="mainBtn" onclick = "switchBtn()">
+
+
+  <span id="airArea"></span>
+</body>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+  $("#postBtn").click(function() {
+    var aircraftCode = $("#aircraftCode").val();
+    var aircraftName = $("#aircraftName").val();
+    var seats = $("#seats").val();
+    console.log(aircraftCode, aircraftName, seats);
+    $.ajax({
+      url: '/aircraftPost',
+      type: 'POST',
+      data: {
+        aircraftCode: aircraftCode,
+        aircraftName: aircraftName,
+        seats: seats
+      },
+      success: function(response) {
+        console.log(response);
+        alert('항공기 정보를 입력했습니다.\n메인 페이지로 이동합니다.');
+        location.href = '/aircraftPage';
+      }
+    });
+  });
+
+  function switchBtn() {
+    location.href = "/aircraftPage"
+  }
+</script>
+
+</html>

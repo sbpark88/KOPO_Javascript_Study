@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <input type="text" placeholder="name을 입력" id="data1">
+    <input type="text" placeholder="where 조건" id="data2">
+    <br><br>
+    <input type="button" value="셀렉트" id="selectBnt"></button>
+    <input type="button" value="업데이트" id="updateBnt"></button>
+    <input type="button" value="지우개" id="clearBnt"></button>
+    <br><br>
+    <span id="result"></span>
+  </body>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+    $('#selectBnt').click(function() {
+      $.ajax({
+        url : 'http://localhost:81/selectFromServer',
+        data : {
+        },
+        success : function(response) {
+          console.log(response);
+          for (var i = 0; i < response.length; i++) {
+            $('#result').append("no : " + response[i].no);
+            $('#result').append(", name : " + response[i].name + "<br>");
+          };
+        }
+      });
+    });
+    $('#updateBnt').click(function() {
+      $.ajax({
+        url : 'http://localhost:81/updateFromServer',
+        data : {
+          data1 : $('#data1').val(),
+          data2 : $('#data2').val()
+        },
+        success : function(response) {
+          console.log(response);
+          for (var i = 0; i < response.length; i++) {
+            $('#result').append("no : " + response[i].no);
+            $('#result').append(", name : " + response[i].name + "<br>");
+          };
+        }
+      });
+    });
+    $('#clearBnt').click(function() {
+      $('#result').html("");
+    });
+  </script>
+
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>운항정보입력</title>
+</head>
+<style>
+  #aircraftInfo {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin-right: -4px;
+  }
+
+  #airroadInfo {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin-right: -4px;
+  }
+
+  #btn_group input {
+    border: 1px solid skyblue;
+    background-color: rgba(0, 0, 0, 0);
+    color: skyblue;
+    padding: 5px;
+  }
+
+  #btn_group input:hover {
+    color: white;
+    background-color: skyblue;
+  }
+</style>
+
+<body>
+  <h3> 운항정보 입력을 해주세요 </h3>
+  편명<input type="text" id="flightName">
+  <br>
+  항공기명<select id="aircraftCode"></select>
+  <br>
+  출발지<input type="text" id="departure">
+  <br>
+  목적지<input type="text" id="arrival">
+  <br>
+  출발시간<input type="text" id="departTime">
+  <br>
+  도착시간<input type="text" id="arriveTime">
+  <br><br>
+  <div id="btn_group">
+    <input type="button" value="운항 정보 입력" id="postBtn">
+    <input type="button" value="메인으로" id="mainBtn" onclick="switchBtn()">
+  </div>
+
+
+  <span id="airArea"></span>
+
+</body>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+  $.ajax({
+    url: '/aircraft',
+    data: {
+      // no: no
+    },
+    success: function(response) {
+      for (var i = 0; i < response.length; i++) {
+        var aircraft = response[i]
+        $("#aircraftCode").append(`<option value="${aircraft.aircraftCode}"> ${aircraft.aircraftName} </option>`)
+      }
+    }
+  });
+  $("#postBtn").click(function() {
+    var flightName = $("#flightName").val();
+    var aircraftCode = $("#aircraftCode").val();
+    var departure = $("#departure").val();
+    var arrival = $("#arrival").val();
+    var departTime = $("#departTime").val();
+    var arriveTime = $("#arriveTime").val();
+    console.log(flightName, aircraftCode, departure, arrival, departTime, arriveTime);
+    $.ajax({
+      url: '/flightPost',
+      type: 'POST',
+      data: {
+        flightName: flightName,
+        aircraftCode: aircraftCode,
+        departure: departure,
+        arrival: arrival,
+        departTime: departTime,
+        arriveTime: arriveTime
+      },
+      success: function(response) {
+        console.log(response);
+      }
+
+
+    });
+
+  });
+
+  function switchBtn() {
+    location.href = "/aircraftPage"
+  }
+</script>
+
+</html>

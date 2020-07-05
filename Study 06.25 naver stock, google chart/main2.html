@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <select name="cars" id="cars">
+      <option value="http://192.168.110.26/price1">price1</option>
+      <option value="http://192.168.110.26/price2">price2</option>
+      <option value="http://192.168.110.26/price3">price3</option>
+    </select>
+    <input type="button" value="시작" onclick="sendRequest()">
+    <br><br>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <div id="chart_div"></div>
+
+  </body>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+  var graphValue = [];
+
+  function sendRequest() {
+    // $("#cars > option:nth-child(1).val()")
+    // console.log(`${$("#cars option:selected").val()}`);
+
+    $.ajax({
+      url : '/findprice',
+      type : 'GET',
+      data : {
+        priceUrl: `${$("#cars option:selected").val()}`
+      },
+      success : function(res) {
+        // 배열 초기화
+        graphValue = [];
+        // 배열에 값 담기
+        for(var i=0; i<res.length; i++) {
+          graphValue.push([Number(res[i].no),Number(res[i].price)]);
+          google.charts.load('current', {packages: ['corechart', 'line']});
+          google.charts.setOnLoadCallback(drawCurveTypes);
+
+          function drawCurveTypes() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('number', '시간(초)');
+            data.addColumn('number', '가격');
+
+            data.addRows(graphValue);
+
+            var options = {
+              hAxis: {
+                title: '시간(초)'
+              },
+              vAxis: {
+                title: '가격(원)'
+              },
+              series: {
+                1: {curveType: 'function'}
+              }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+          }
+        }
+      }
+    });
+  };
+
+  </script>
+</html>

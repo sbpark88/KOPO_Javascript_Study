@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <input type="text" placeholder="기사 제목을 입력하세요." id="title" style="width:500px"><br><br>
+    <input type="text" placeholder="기사 내용을 입력하세요." id="content" style="width:500px; height:300px">
+    <br><br>
+    <input type="button" value="포스팅" id="insertBnt"></button>
+    <input type="button" value="홈으로" onclick="redirectToPostNewsPage()"></button>
+    <br><br>
+    <span id="result"></span>
+  </body>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+    $('#insertBnt').click(function() {
+      $.ajax({
+        url : 'http://localhost:81/insertNewsFromServer',
+        type : 'POST',
+        data : {
+          q_title : $('#title').val(),
+          q_content : $('#content').val()
+        },
+        success:function(response) {
+          alert('포스팅을 완료했습니다.\n메인 페이지로 이동합니다.');
+          location.href = '/newsList';
+        }
+      });
+    });
+
+    // '홈으로' 버튼을 누르면 /newsList 페이지로 리다이렉트 시켜주는 함수를 생성.
+    function redirectToPostNewsPage() {
+      location.href = "/newsList";
+    }
+  </script>
+</html>

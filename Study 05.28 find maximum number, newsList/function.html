@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <input type="text" name="num1">
+    <input type="text" name="num2">
+    <input type="text" name="num3">
+    <input type="button" id="compareBtn" value="버튼">
+    <br>
+    가장 큰 수는 : <span id="result"></span>
+  </body>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+    $("#compareBtn").click(function(){
+      var maxVal = getMax();
+      console.log(maxVal);
+      $("#result").html(maxVal);
+    });
+
+    function getMax(val1, val2, val3) {
+      var val1 = $("input[name=num1]").val();
+      var val2 = $("input[name=num2]").val();
+      var val3 = $("input[name=num3]").val();
+      var maxVal = val1;
+
+      console.log(val1);
+      console.log(val2);
+      console.log(val3);
+
+      // console.log(maxVal);
+
+      if (maxVal < val2) {
+        maxVal = val2;
+        // console.log(maxVal);
+      }
+
+      if (maxVal < val3) {
+        maxVal = val3;
+        // console.log(maxVal);
+      }
+
+      return maxVal;
+    }
+
+  </script>
+</html>

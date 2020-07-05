@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>주식 리스트</title>
+  </head>
+  <body>
+    <h>주식 리스트 페이지입니다</h>
+    <input type="button" value="실시간 주식 정보 조회하러 가기" id="mainBtn" onclick = "goToRealTimePrice()">
+    <br><br>
+    <span id="stockList"></span>
+
+  </body>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+  $.ajax({
+    url : 'getStockInfo',
+    data : {
+    },
+    success : function(res){
+      $("#stockList").append(`저장된 주식 리스트는 다음과 같습니다.<br>`);
+      for (var i=0; i<res.length; i++) {
+        var name = res[i].stockName;
+        $("#stockList").append(`${name}<br>`);
+      }
+    }
+  });
+
+  function goToRealTimePrice() {
+    location.href = "/realTimePrice"
+  }
+</script>
+</html>

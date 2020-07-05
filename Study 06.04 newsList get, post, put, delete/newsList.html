@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <input type="button" value="포스팅 페이지로" id="doPost"></button>
+    <br><br>
+    <span id="result"></span>
+  </body>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+    // 페이지 접속 시 바로 ajax가 DB를 읽어오는 쿼리를 app.js 서버에 요청, response를 받아 뿌려준다.
+    $.ajax({
+      url:'http://localhost:81/selectNewsFromServer',
+      data: {
+      },
+      success:function(response){   // 받아온 response는 [{Key:Value},{Key:Value},{Key:Value}]로 리스트 안에 딕셔너리 형태로 받아온다.
+        console.log(response);
+        for(var i=0;i<response.length;i++) {
+          var news = response[i];   // response로 받아온 리스트의 i 번째 딕셔너리를 변수에 담는다.
+          $("#result").append(
+            // 변수 var은 for문을 돌려 DB에서 받아온 데이터를 각 row를 저장하고 있고, 그것은 딕셔너리 형태로 저장하고 있으니 아래와 같이 호출한다.
+            `제목 : ${news.title}
+            <input type="button" value="삭제" onclick="deletePost(${news.no})">
+            <input type="button" value="수정" onclick="editPost(${news.no})"><br>
+            내용 : ${news.content} <br><br>`);
+        }
+      }
+    });
+
+    // '포스팅' 버튼을 누르면 /newsPost 페이지로 리다이렉트 시켜주는 함수를 생성하고 클릭시 실행하는 명령을 생성.
+    $('#doPost').click(function() {
+      redirectToPostNewsPage();
+    });
+
+    function redirectToPostNewsPage() {
+      location.href = "/newsPost";
+    }
+
+    function deletePost(no) {
+      console.log(no)
+      $.ajax({
+        url : 'http://localhost:81/deleteNewsFromServer',
+        type : 'DELETE',
+        data : {
+          q_no : no
+        },
+        success:function(response){
+          alert('포스팅을 삭제했습니다.\n페이지를 새로고침합니다.');
+          location.href = '/newsList';
+        }
+      });
+    }
+
+    function editPost(no) {
+      var no = no;
+      location.href = `/newsEdit?q_no=${no}`
+    }
+
+  </script>
+
+
+</html>
