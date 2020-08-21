@@ -13,7 +13,7 @@ var connection = mysql.createConnection({
   port: 3308,
   user:'root',
   password: '1234',
-  database: 'test'  // test라는 데이터베이스에 접속
+  database: 'javascript'
 });
 
 
