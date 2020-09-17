@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <span id="menuArea"></span>
+    <br />
+    <input type="button" id="drawGraph" value="그래프그리기">
+    <input type="button" id="downloadExcel" value="엑셀다운로드">
+    <div id="graph" style="width: 800px; height: 500px;"></div>
+  </body>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    var week = ['월','화','수','목','금'];
+    var menus;
+
+    $.ajax({
+      url : '/getMenu',
+      type : 'GET',
+      data : {
+
+      },
+      success : function (data) {
+        menus = data;  // 바깥 배열이 요일별로 분리, 안쪽 배열이 메뉴별로 분리된 매트릭스
+        for(var i = 0; i < menus.length; i++) {
+          // 바깥 배열 길이만큼 돌며 요일을 출력
+          $("#menuArea").append(week[i] + "요일<br>");
+          console.log(week[i] + "요일<br>");
+
+          // 셀렉트 박스를 만들기 위해 appendingText에 한 번에 담아서 출력하기
+          for(var j = 0; j < menus[i].length; j++) {
+            var appendingText = "";
+            // i 요일의 j 번째 메뉴를 출력
+            // appendingText += menus[i][j] + `<select id = "s${i}_${j}"`;
+            appendingText += menus[i][j] + `<select name="s${i}">`;
+
+            // select 의 수량을 10개 만든다.
+            for (var k = 0; k < 11; k++) {
+              appendingText += `<option value = ${k}>${k}</option>`;
+            }
+            appendingText += `<select><br>`;
+            $("#menuArea").append(appendingText);
+            // console.log(appendingText);
+          }
+          $("#menuArea").append("<br>");
+        }
+      }
+    });
+
+    $("#drawGraph").click(function() {
+      var averageArr = [];
+      console.log($("#count").val());
+
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['요일', '메뉴1', '메뉴2', '메뉴3'],
+          ['2014', 1000, 400, 200],
+          ['2015', 1170, 460, 250],
+          ['2016', 660, 1120, 300],
+          ['2017', 1030, 540, 350]
+        ]);
+
+        var options = {
+          chart: {
+            title: '식단 그래프',
+            subtitle: '2학기 비대면무룩... 학교 밥 맛있는데... 먹고싶어요...',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('graph'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    });
+
+    $("#downloadExcel").click(function() {
+      var scores = [];
+
+      for (var i = 0; i < menus.length; i++) {
+        scores[i] = [];
+        var dailyScore = $(`select[name=s${i}]`);
+        for (var j = 0; j < dailyScore.length; j++) {
+          for (var k = 0; k < 11; k++) {
+            if (dailyScore[j][k].selected) {
+              scores[i].push(k);
+            }
+          }
+        }
+      }
+      console.log(scores);
+      console.log(menus);
+      $.ajax({
+        url : '/getExcel',
+        type : 'POST',
+        data : {
+          scores : scores,
+          menus : menus
+        },
+        success : function (res) {
+          console.log(res);
+          location.href = '/getExcelFile';
+        }
+      });
+
+    });
+  </script>
+</html>
