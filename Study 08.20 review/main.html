@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>2학기 비대면무룩 ㅠㅠ</title>
+  </head>
+  <body>
+    <div id="postingListArea"></div>
+    <br/>
+    <input type="button" value="글쓰기" id="goToWritePostPage">
+  </body>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+
+    $.ajax({
+      url : '/post',
+      type : 'GET',
+      data : {
+
+      },
+      success : function(res) {
+        for (var i=0; i < res.length; i++) {
+          var each = res[i];
+          $('#postingListArea').append(`
+            제목 : <input type='text' value="${each.title}" onclick="editPost(${each.no})">
+            <input type="button" value="삭제" onclick="deletePost(${each.no})">
+            <br> 내용 : ${each.context} <br><br>`);
+        }
+      }
+    });
+
+    $('#goToWritePostPage').click(function() {
+      location.href = '/writePage';
+    });
+
+    function editPost(no) {
+      location.href = `/editPage?q_no=${no}`;
+    }
+
+  </script>
+</html>

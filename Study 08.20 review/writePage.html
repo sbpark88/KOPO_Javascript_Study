@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>2학기 시작이다</title>
+  </head>
+  <body>
+    제목 : <input type="text" class="title"><br/>
+    내용 : <textarea name="contents" rows="8" cols="80"></textarea><br/>
+    <input type="button" value="입력" id="writePost">
+    <input type="button" value="돌아가기" onclick="backBtn()">
+
+  </body>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+    $('#writePost').click(function() {
+      $.ajax({
+          url : '/post',
+          type : 'POST',
+          data : {
+            q_title : $('.title').val(),
+            q_contents : $('[name=contents]').val()
+          },
+          success:function(res) {
+            alert('포스팅을 완료했습니다.')
+            location.href = '/';
+          }
+      });
+    });
+
+    function backBtn() {
+      location.href = '/';
+    };
+
+  </script>
+</html>

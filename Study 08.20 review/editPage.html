@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style type="text/css">
+      textarea{ resize: none;}
+    </style>
+    <title></title>
+  </head>
+  <body>
+    <!-- <input type="text" id="title">
+    <input type="text" id="content"> -->
+    <input type="text" placeholder="title" id="title" style="width:500px"><br><br>
+    <textarea cols="69" rows="15" placeholder="내용을 입력하세요." id="content"></textarea>
+    <input type="button" value="수정" id="updatePostBtn">
+    <input type="button" value="삭제" id="deletePostBtn">
+    <input type="button" value="돌아가기" id="backToListBtn">
+  </body>
+
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script type="text/javascript">
+    var q_no = location.search;
+    q_no = q_no.split("=")[1];
+
+    $.ajax({
+      url:'/post',
+      type : 'GET',
+      data:{
+        no: no
+      },
+      success:function(res){
+        var each = res[0];
+        $("#title").val(each.title);
+        $("#content").val(each.context);
+      }
+    });
+
+    $("#backToListBtn").click(function(){
+      location.href = "/";
+    });
+
+    $("#updatePostBtn").click(function(){
+      $.ajax({
+        url:'/post',
+        type:"PUT",
+        data:{
+          no: no,
+          title: $("#title").val(),
+          content: $("#content").val(),
+        },
+        success:function(res){
+          alert("글이 수정되었습니다.");
+          location.href = "/";
+        }
+      });
+    });
+
+  </script>
+</html>
