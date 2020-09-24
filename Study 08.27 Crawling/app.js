@@ -77,6 +77,9 @@ app.post('/getExcel', async function (req, res) {
 
   const alpahbet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
   const dayOfTheWeek = ['월','화','수','목','금','토','일'];
+  var menusMaxLength = 0;
+  var roundedAverage = [];
+
 
   for (var i = 0; i < menus.length; i++) {
     // console.log(`${alpahbet[i*2]}1 = ${dayOfTheWeek[i]}`);
@@ -93,11 +96,16 @@ app.post('/getExcel', async function (req, res) {
     // acc : 누적값, (,0 : 초기값), curr : 현재값... 그러니까 파이썬 식으로 표현하면 sum = sum + curr 이런거다.
     const sum = scores[i].reduce( ( accumulator, currentValue ) => accumulator + currentValue, 0);
     const average = sum / menus[i].length;
-    const roundedAverage = ( Math.round(average*10) ) / 10; // 소수점 첫째 자리까지 표현
+    roundedAverage[i] = ( Math.round(average*10) ) / 10; // 소수점 첫째 자리까지 표현
 
     // console.log(`${alpahbet[i*2]}${menus[i].length+3} = 평균`);
-    sheet.getCell(`${alpahbet[i*2]}${menus[i].length+3}`).value = '평균';
-    sheet.getCell(`${alpahbet[i*2+1]}${menus[i].length+3}`).value = roundedAverage;  // 계산한 평균을 입력
+    // 메뉴의 길이 중 최대로 긴 값의 크기를 구해서 저장한다. (요일마다 메뉴의 길이가 다를 수 있으니까.)
+    if (menus[i].length > menusMaxLength) menusMaxLength = menus[i].length;
+  }
+
+  for (var i = 0; i < menus.length; i++) {
+    sheet.getCell(`${alpahbet[i*2]}${menusMaxLength+3}`).value = '평균';
+    sheet.getCell(`${alpahbet[i*2+1]}${menusMaxLength+3}`).value = roundedAverage[i];  // 계산한 평균을 입력
   }
 
 
