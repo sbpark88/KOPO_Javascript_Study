@@ -28,7 +28,7 @@
         for(var i = 0; i < menus.length; i++) {
           // 바깥 배열 길이만큼 돌며 요일을 출력
           $("#menuArea").append(week[i] + "요일<br>");
-          console.log(week[i] + "요일<br>");
+          // console.log(week[i] + "요일<br>");
 
           // 셀렉트 박스를 만들기 위해 appendingText에 한 번에 담아서 출력하기
           for(var j = 0; j < menus[i].length; j++) {
@@ -50,35 +50,57 @@
       }
     });
 
+    // 그래프 그리기
     $("#drawGraph").click(function() {
       var averageArr = [];
       console.log($("#count").val());
 
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart);
+      // 월 ~ 금 반복문
+      for (var i = 0; i < menus.length; i++) {
+        var dailyAverage = 0;
+        // 각 요일별 메뉴의 반복문
+        var dailyScore = $(`select[name=s${i}]`);
+        for (var j = 0; j < dailyScore.length; j++) {
+          // 각 메뉴별 1 ~ 10 점 중 어떤 것이 선택되었는지를 확인
+          for (var k = 0; k < 11; k++) {
+            if (dailyScore[j][k].selected) {
+              dailyAverage +=k; // 각 요일별 메뉴들의 점수의 총 합
+            }
+          }
+        }
+        dailyAverage = dailyAverage / dailyScore.length // 각 요일별 메뉴의 점수들의 총 합을 메뉴의 개수로 나눠 평균을 계산
+        averageArr.push([week[i], dailyAverage]);
+        console.log(averageArr);
+      }
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['요일', '메뉴1', '메뉴2', '메뉴3'],
-          ['2014', 1000, 400, 200],
-          ['2015', 1170, 460, 250],
-          ['2016', 660, 1120, 300],
-          ['2017', 1030, 540, 350]
-        ]);
+      google.charts.load('current', {'packages':['corechart', 'line']});
+      google.charts.setOnLoadCallback(drawCurveTypes);
+
+      function drawCurveTypes() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', '요일');
+        data.addColumn('number', '점수');
+
+        data.addRows(averageArr);
 
         var options = {
-          chart: {
-            title: '식단 그래프',
-            subtitle: '2학기 비대면무룩... 학교 밥 맛있는데... 먹고싶어요...',
+          hAxis: {
+            title: '요일'
+          },
+          vAxis: {
+            title: '만족도'
+          },
+          series: {
+            1: {curveType: 'function'}
           }
         };
 
-        var chart = new google.charts.Bar(document.getElementById('graph'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
+        var chart = new google.visualization.LineChart(document.getElementById('graph'));
+        chart.draw(data, options);
       }
     });
 
+    // 엑셀 다운로드
     $("#downloadExcel").click(function() {
       var scores = [];
 
