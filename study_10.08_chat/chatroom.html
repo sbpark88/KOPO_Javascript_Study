@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <title>Simple Chat</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <!-- <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/emojione/2.2.6/assets/css/emojione.min.css"
+      /> -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <div class="nav-wrapper">
+          <a href="/" class="brand-logo right">GreenDreamTree</a>
+        </div>
+      </nav>
+    </header>
+    <main id="app">
+      <div id="main">
+        <div class="row" id="chatRow">
+          <div class="col s12">
+            <div class="card horizontal">
+              <div id="chat-messages" class="card-content" v-html="chatContent"></div>
+              <!-- 메시지가 출력될 공간 생성. -->
+              <ul id="messages"></ul>
+            </div>
+          </div>
+        </div>
+        <div class="row" v-if="joined">
+          <div id="chatInput">
+            <div class="input-field col s8">
+              <!-- id="m"을 추가. "send"를 "sendBtn"으로 수정. -->
+              <input type="text" id="m" v-model="newMsg" @keyup.enter="sendBtn" />
+            </div>
+            <div class="input-field col s4">
+              <!-- id를 "sendBtn"으로 수정. -->
+              <button class="waves-effect waves-light btn" id="sendBtn">
+                <i class="material-icons right">chat</i>
+                Send
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      </div>
+    <a id="exitButton" class="waves-effect waves-light btn">EXIT</a>
+
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      $(() => {
+        var socket = io();
+
+        // form이 submit 할 때 아래 함수를 실행. 'form의 sumbit이 발생시' > 'sendBtn 버튼 클릭시'로 변경.
+        $('#sendBtn').click((e) => {
+          e.preventDefault(); // prevents page reloading
+          socket.emit('chat message', $('#m').val());
+          $('#m').val('');
+          return false;
+        });
+
+        // 위 함수를 실행할 때 socket.emit('chat message', $('#m').val()); 에 의해 서버가 on 되어 실행.
+        socket.on('chat message', (msg) => {
+          $('#messages').append($('<li>').text(msg));
+        });
+
+        window.addEventListener('keyup', event => {
+          if (event.keyCode === 13) {
+            this.callEvent()
+          }
+        })
+
+      });
+    </script>
+
+    <script src="/main.js"></script>
+  </body>
+
+</html>

@@ -1,0 +1,46 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+  color:
+}
+
+#chat-messages {
+  min-height: 10vh;
+  height: 60vh;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.passwords {
+  height: 75px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#chatRow {
+  width: 50%;
+  float: left;
+}
+#chatInput {
+  width: 62%;
+}
+#exitButton {
+  width: 100px;
+  left: 20px;
+  margin-bottom: 20px;
+}
+
+#infoTitle {
+  font-size: 22px;
+}
+#info{
+  font-size: 18px;
+}
+#info ul li{
+  font-size: 16px;
+}

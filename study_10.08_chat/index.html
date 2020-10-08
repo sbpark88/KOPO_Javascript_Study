@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Socket.IO chat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: 0.5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    </style>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button id="sendBtn">보내기</button>
+    </form>
+  </body>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    $(() => {
+      var socket = io();
+
+      // form이 submit 할 때 아래 함수를 실행. 'form의 sumbit이 발생시' > 'sendBtn 버튼 클릭시'로 변경.
+      // $('form').submit((e) => {
+      $('#sendBtn').click((e) => {
+        e.preventDefault(); // prevents page reloading
+        socket.emit('chat message', $('#m').val());
+        $('#m').val('');
+        return false;
+      });
+
+      // 위 함수를 실행할 때 socket.emit('chat message', $('#m').val()); 에 의해 서버가 on 되어 실행.
+      socket.on('chat message', (msg) => {
+        $('#messages').append($('<li>').text(msg));
+      });
+
+    });
+  </script>
+</html>
