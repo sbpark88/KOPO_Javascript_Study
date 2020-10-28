@@ -4,89 +4,114 @@
   <head>
     <meta charset="UTF-8" />
     <title>Simple Chat</title>
-
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <!-- <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/emojione/2.2.6/assets/css/emojione.min.css"
       /> -->
     <link rel="stylesheet" href="style.css" />
+    <style>
+      ul {
+        height: 800px;
+        width: 90%;
+        background-color: powderblue;
+        border-style: inset;
+        line-height: 180%;
+      }
+      #chatroom  {
+        display: none;
+      }
+    </style>
   </head>
 
   <body>
-    <header>
-      <nav>
-        <div class="nav-wrapper">
-          <a href="/" class="brand-logo right">GreenDreamTree</a>
-        </div>
-      </nav>
-    </header>
-    <main id="app">
-      <div id="main">
-        <div class="row" id="chatRow">
-          <div class="col s12">
-            <div class="card horizontal">
-              <div id="chat-messages" class="card-content" v-html="chatContent"></div>
-              <!-- 메시지가 출력될 공간 생성. -->
-              <ul id="messages"></ul>
+    <div id="loginArea">
+      <input type="text" id="loginId" placeholder="아이디를 입력하세요.">
+      <input type="button" id="loginBtn" value="접속">
+    </div>
+
+    <div id="chatroom" style="display:none;">
+      <header>
+        <nav>
+          <div class="nav-wrapper">
+            <a href="/" class="brand-logo right">GreenDreamTree</a>
+          </div>
+        </nav>
+      </header>
+      <main id="app">
+        <div id="main">
+          <div class="row" id="chatRow">
+            <div class="col s12">
+              <div class="card horizontal">
+                <div id="chat-messages" class="card-content" v-html="chatContent"></div>
+                <!-- 메시지가 출력될 공간 생성. -->
+                <ul id="messages" style="line-height:200%"></ul>
+              </div>
+            </div>
+          </div>
+          <div class="row" v-if="joined">
+            <div id="chatInput">
+              <div class="input-field col s8">
+                <!-- id="m"을 추가. "send"를 "sendBtn"으로 수정. -->
+                <input type="text" id="m" v-model="newMsg" @keyup.enter="sendBtn" />
+              </div>
+              <div class="input-field col s4">
+                <!-- id를 "sendBtn"으로 수정. -->
+                <button class="waves-effect waves-light btn" id="sendBtn">
+                  <i class="material-icons right">chat</i>
+                  Send
+                </button>
+              </div>
             </div>
           </div>
         </div>
-        <div class="row" v-if="joined">
-          <div id="chatInput">
-            <div class="input-field col s8">
-              <!-- id="m"을 추가. "send"를 "sendBtn"으로 수정. -->
-              <input type="text" id="m" v-model="newMsg" @keyup.enter="sendBtn" />
-            </div>
-            <div class="input-field col s4">
-              <!-- id를 "sendBtn"으로 수정. -->
-              <button class="waves-effect waves-light btn" id="sendBtn">
-                <i class="material-icons right">chat</i>
-                Send
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <a id="exitButton" class="waves-effect waves-light btn">EXIT</a>
+    </div>
 
-      </div>
-    <a id="exitButton" class="waves-effect waves-light btn">EXIT</a>
-
-    <script src="https://code.jquery.com/jquery-3.5.0.min.js"
-      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-    <!-- socket.io -->
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-      $(() => {
-        var socket = io();
-
-        // form이 submit 할 때 아래 함수를 실행. 'form의 sumbit이 발생시' > 'sendBtn 버튼 클릭시'로 변경.
-        $('#sendBtn').click((e) => {
-          e.preventDefault(); // prevents page reloading
-          socket.emit('chat message', $('#m').val());
-          $('#m').val('');
-          return false;
-        });
-
-        // 위 함수를 실행할 때 socket.emit('chat message', $('#m').val()); 에 의해 서버가 on 되어 실행.
-        socket.on('chat message', (msg) => {
-          $('#messages').append($('<li>').text(msg));
-        });
-
-        window.addEventListener('keyup', event => {
-          if (event.keyCode === 13) {
-            this.callEvent()
-          }
-        })
-
-      });
-    </script>
-
-    <script src="/main.js"></script>
   </body>
+
+  <!-- socket.io -->
+  <script>
+    $(() => {
+      var socket = io();
+
+      // form이 submit 할 때 아래 함수를 실행. 'form의 sumbit이 발생시' > 'sendBtn 버튼 클릭시'로 변경.
+      $('#sendBtn').click((e) => {
+        e.preventDefault(); // prevents page reloading
+        socket.emit('chat message', $('#m').val()); // (1. 클라이언트 -> 서버) 'chat message'소켓에 '$('#m').val()'를 담아 보낸다.
+        $('#m').val('');  // 입력창을 비워준다.
+        return false;
+      });
+
+      socket.on('chat message', (msg) => {  // (4. 서버 -> 클라이언트) 'chat message'소켓이 msg라는 변수로 받는다.
+        $('#messages').append($('<li>').text(msg)); //  messages(채팅목록)에 msg를 append 시켜준다.
+      });
+
+      window.addEventListener('keyup', event => {
+        if (event.keyCode === 13) {
+          this.callEvent()
+        }
+      });
+    });
+  </script>
+
+  <!-- 영역 감추기/보이기 설정 -->
+  <script>
+    $("#loginBtn").click(() => {
+      $("#loginArea").css("display", "none");
+      $("#chatroom").css("display", "block");
+
+      // 서버에 로그인 아이디를 보낸다.
+      socket.emit("joinChatRoom", $("#loginId").val());
+    });
+
+  </script>
 
 </html>
