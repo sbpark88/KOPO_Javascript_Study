@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script>
+      // $(() => {
+      //   $('#startDatePicker').datepicker({ dateFormat: 'yy-mm-dd'});
+      // });
+
+      $('#startDatePicker').click(() => {console.log('ttt');});
+      $('[name=radio]').click(function() {
+        console.log('kkk');
+      });
+    </script>
+
+  </head>
+  <body>
+    <FORM NAME=formMissionary METHOD=POST ACTION=missionary_submit.asp>
+      담당자 : <INPUT TYPE=TEXT NAME=name SIZE=50><BR>
+      설명 : <INPUT TYPE=TEXT NAME=description SIZE=20><BR>
+      운영기간 시작일 : <INPUT TYPE=TEXT NAME=dateStart ID=startDatePicker>
+      마감일 : <INPUT TYPE=TEXT NAME=dateEnd  ID=endDatePicker><BR>
+      <INPUT TYPE=RADIO NAME=allowCall VALUE="1">예
+      <INPUT TYPE=RADIO NAME=allowCall VALUE="0">아니오
+      <INPUT TYPE=SUBMIT VALUE='전송'>    
+    </FORM>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "body-parser": "file:C:/Users/hagra/AppData/Roaming/npm/node_modules/body-parser",
+    "express": "^4.17.1",
+    "nodejs": "file:C:/Users/hagra/AppData/Roaming/npm/node_modules/nodejs",
+    "supervisor": "^0.12.0"
+  }
+}
