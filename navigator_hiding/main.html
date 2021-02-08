@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>navigator_hiding</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <script type="text/javascript" src="/js/main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+</head>
+<body>
+  <span id="toc-toggle" onclick="openCloseToc()">더보기</span>
+  <div class="toc-content"> <!-- display: none/block (감추기 정의하기) -->
+    <div class="navigator"> <!-- display: table (테이블 정의하기) -->
+      <dl class="list_service"> <!-- display: table-cell (컬럼 만들기) -->
+        <dt class="service_title">운동</dt>
+        <dd class="service_data">걸음수</dd>
+        <dd class="service_data">목표달성</dd>
+      </dl>
+      <dl class="list_service">
+        <dt class="service_title">투약</dt>
+        <dd class="service_data">투약정보</dd>
+        <dd class="service_data">투약기록</dd>
+      </dl>
+      <dl class="list_service">
+        <dt class="service_title">설문/영상</dt>
+        <dd class="service_data">설문참여</dd>
+        <!-- <dd class="service_data"><input type="button" id="watchYoutube" value="유튜브"></dd> -->
+        <dd class="service_data"><a href="#" id="watchYoutube">유튜브</a></dd>
+      </dl>
+      <dl class="list_service">
+        <dt class="service_title">연락</dt>
+        <dd class="service_data">FAQ</dd>
+        <dd class="service_data">Q&A</dd>
+      </dl>
+    </div>
+  </div>
+</body>
+</html>
