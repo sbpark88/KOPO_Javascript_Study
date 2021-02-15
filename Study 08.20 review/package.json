@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "body-parser": "file:C:/Users/hagra/AppData/Roaming/npm/node_modules/body-parser",
+    "epxress": "file:C:/Users/hagra/AppData/Roaming/npm/node_modules/epxress",
+    "express": "file:C:/Users/hagra/AppData/Roaming/npm/node_modules/express",
+    "http": "file:C:/Users/hagra/AppData/Roaming/npm/node_modules/http",
+    "mysql": "file:C:/Users/hagra/AppData/Roaming/npm/node_modules/mysql",
+    "request": "file:C:/Users/hagra/AppData/Roaming/npm/node_modules/request",
+    "require": "file:C:/Users/hagra/AppData/Roaming/npm/node_modules/require",
+    "supervisor": "file:C:/Users/hagra/AppData/Roaming/npm/node_modules/supervisor"
+  },
+  "name": "Study 08.20 review"
+}
