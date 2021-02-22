@@ -19,7 +19,7 @@
 
 
 // Arrow function
-let x = 7;
+// let x = 7;
 
 // const square = x => { return x * x; }
 // console.log(square(x));
@@ -33,6 +33,58 @@ let x = 7;
 // const rainbow = () => ( { first: "red", second: "orange", third: "yellow" } )
 // console.log(rainbow());
 
-const number = [1, 2, 3, 4];
-const square = number.map(x => x * x);
-console.log(square);
+// const number = [1, 2, 3, 4];
+// const square = number.map(x => x * x);
+// console.log(square);
+
+// normal function
+// function Prefixer(prefix) {
+//     this.prefix = prefix;
+// }
+//
+// Prefixer.prototype.prefixArray = function (arr) {
+//     return arr.map(function (x) {
+//         return `${this} ${x}`;
+//     })
+// }
+//
+// let pre = new Prefixer('Hi');
+// console.log(pre.prefixArray(['Lee', 'Kim']));   // [ 'undefined Lee', 'undefined Kim' ]
+
+// function Prefixer(prefix) {
+//   this.prefix = prefix;
+// }
+//
+// Prefixer.prototype.prefixArray = function (arr) {
+//   var that = this;
+//   return arr.map(function (x) {
+//     return `${that.prefix} ${x}`;
+//   });
+// };
+//
+// let pre = new Prefixer('Hi');
+// console.log(pre.prefixArray(['Lee', 'Kim']));   // [ 'Hi Lee', 'Hi Kim' ]
+
+function Prefixer(prefix) {
+    this.prefix = prefix;
+}
+
+Prefixer.prototype.prefixArray = function (arr) {
+    return arr.map((x) => `${this.prefix} ${x}`);
+};
+
+let pre = new Prefixer('Hi');
+console.log(pre.prefixArray(['Lee', 'Kim']));   // [ 'Hi Lee', 'Hi Kim' ]
+
+const person = {
+    name: 'Lee',
+    sayHi: () => console.log(`Hi ${this.name}`)
+};
+
+// const person = {
+//   name: 'Lee',
+//   sayHi: function () {console.log(`Hi ${this.name}`)}
+// };
+//
+// person.sayHi();
+
