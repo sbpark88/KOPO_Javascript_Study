@@ -65,26 +65,27 @@
 // let pre = new Prefixer('Hi');
 // console.log(pre.prefixArray(['Lee', 'Kim']));   // [ 'Hi Lee', 'Hi Kim' ]
 
-function Prefixer(prefix) {
-    this.prefix = prefix;
-}
-
-Prefixer.prototype.prefixArray = function (arr) {
-    return arr.map((x) => `${this.prefix} ${x}`);
-};
-
-let pre = new Prefixer('Hi');
-console.log(pre.prefixArray(['Lee', 'Kim']));   // [ 'Hi Lee', 'Hi Kim' ]
-
-const person = {
-    name: 'Lee',
-    sayHi: () => console.log(`Hi ${this.name}`)
-};
-
-// const person = {
-//   name: 'Lee',
-//   sayHi: function () {console.log(`Hi ${this.name}`)}
+// function Prefixer(prefix) {
+//     this.prefix = prefix;
+// }
+//
+// Prefixer.prototype.prefixArray = function (arr) {
+//     return arr.map((x) => `${this.prefix} ${x}`);
 // };
 //
-// person.sayHi();
+// let pre = new Prefixer('Hi');
+// console.log(pre.prefixArray(['Lee', 'Kim']));   // [ 'Hi Lee', 'Hi Kim' ]
+//
+// const person = {
+//     name: 'Lee',
+//     sayHi: () => console.log(`Hi ${this.name}`)
+// };
+
+// Do not use arrow function
+const person = {
+  name: 'Lee',
+  sayHi: () => console.log(`Hi ${this.name}`)
+};
+
+person.sayHi();
 
