@@ -82,10 +82,14 @@
 // };
 
 // Do not use arrow function
-const person = {
-  name: 'Lee',
-  sayHi: () => console.log(`Hi ${this.name}`)
-};
+// const person = {
+//   name: 'Lee',
+//   sayHi: () => console.log(`Hi ${this.name}`)
+// };
+//
+// person.sayHi();
 
-person.sayHi();
+let strObject = "Hello Functions and Methods.";
+console.log(strObject.indexOf("Functions"));
 
+console.log(typeof (strObject.indexOf()));
